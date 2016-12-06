@@ -1,10 +1,13 @@
 defmodule PinterestBackend.PinController do
   use PinterestBackend.Web, :controller
+  require IEx
 
   alias PinterestBackend.Pin
 
   def index(conn, _params) do
-    pins = Repo.all(Pin)
+    query = from pins in Pin, preload: [:user]
+    pins = Repo.all(query)
+    IEx.pry
     render(conn, "index.json", pins: pins)
   end
 
@@ -25,7 +28,7 @@ defmodule PinterestBackend.PinController do
   end
 
   def show(conn, %{"id" => id}) do
-    pin = Repo.get!(Pin, id)
+    pin = Repo.get!(Pin, id) |> Repo.preload([:user, {:comments, [:user]}])
     render(conn, "show.json", pin: pin)
   end
 

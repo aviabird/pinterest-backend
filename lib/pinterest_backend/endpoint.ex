@@ -38,5 +38,7 @@ defmodule PinterestBackend.Endpoint do
     key: "_pinterest_backend_key",
     signing_salt: "P0fLiR3o"
 
+  plug CORSPlug
+
   plug PinterestBackend.Router
 end

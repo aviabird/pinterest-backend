@@ -7,7 +7,9 @@ defmodule PinterestBackend.Pin do
     field :url, :string
     field :tags, :string
     field :description, :string
+    
     belongs_to :user, PinterestBackend.User
+    has_many :comments, PinterestBackend.Comment
 
     timestamps()
   end
@@ -19,5 +21,9 @@ defmodule PinterestBackend.Pin do
     struct
     |> cast(params, [:name, :image_url, :url, :tags, :description])
     |> validate_required([:name, :image_url, :url, :tags, :description])
+  end
+
+  def preloaded do
+    [:comments, :user]
   end
 end

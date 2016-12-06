@@ -6,7 +6,7 @@ defmodule PinterestBackend.PinView do
   end
 
   def render("show.json", %{pin: pin}) do
-    %{data: render_one(pin, PinterestBackend.PinView, "pin.json")}
+    %{data: render_one(pin, PinterestBackend.PinView, "pin_w_comments.json")}
   end
 
   def render("pin.json", %{pin: pin}) do
@@ -16,6 +16,19 @@ defmodule PinterestBackend.PinView do
       url: pin.url,
       tags: pin.tags,
       user_id: pin.user_id,
-      description: pin.description}
+      description: pin.description,
+      user: render_one(pin.user, PinterestBackend.UserView, "user.json", as: :user)}
+  end
+
+  def render("pin_w_comments.json", %{pin: pin}) do
+    %{id: pin.id,
+      name: pin.name,
+      image_url: pin.image_url,
+      url: pin.url,
+      tags: pin.tags,
+      user_id: pin.user_id,
+      description: pin.description,
+      comments: render_many(pin.comments, PinterestBackend.CommentView, "comment.json"),
+      user: render_one(pin.user, PinterestBackend.UserView, "user.json")}
   end
 end

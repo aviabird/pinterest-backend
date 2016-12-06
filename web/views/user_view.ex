@@ -16,4 +16,16 @@ defmodule PinterestBackend.UserView do
       avatar: user.avatar,
       provider: user.provider}
   end
+
+  def render("auth.json", %{token: token, user: user}) do
+    %{
+      token: token,
+      user: %{id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        provider: user.provider
+      }
+    }
+  end
 end

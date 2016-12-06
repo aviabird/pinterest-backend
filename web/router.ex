@@ -23,7 +23,8 @@ defmodule PinterestBackend.Router do
   scope "/api", PinterestBackend do
     pipe_through :api
 
-    resources "/users", UserController
+    resources "/users", UserController, except: [:index]
+    post "/users/auth", UserController, :auth
     resources "/pins", PinController
   end
 end
