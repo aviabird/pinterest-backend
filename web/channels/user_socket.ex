@@ -1,8 +1,9 @@
 defmodule PinterestBackend.UserSocket do
   use Phoenix.Socket
+  alias PinterestBackend.Repo
 
   ## Channels
-  # channel "room:*", PinterestBackend.RoomChannel
+  channel "room:*", PinterestBackend.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -19,8 +20,15 @@ defmodule PinterestBackend.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    # Max age of 2 weeks (1209600 seconds)
+    case Phoenix.Token.verify(socket, "user", token, max_age: 1209600) do
+      {:ok, user_id} ->
+        socket = assign(socket, :user, Repo.get!(User, user_id))
+        {:ok, socket}
+      {:error, _} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

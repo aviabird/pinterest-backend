@@ -3,6 +3,8 @@ defmodule PinterestBackend.PinController do
   require IEx
 
   alias PinterestBackend.Pin
+    
+  plug PinterestBackend.Plugs.Authenticate
 
   def index(conn, _params) do
     query = from pins in Pin, preload: [:user]

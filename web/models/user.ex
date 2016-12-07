@@ -6,6 +6,7 @@ defmodule PinterestBackend.User do
     field :email, :string
     field :avatar, :string
     field :provider, :string
+    field :authentication_token, :string
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule PinterestBackend.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :email, :avatar, :provider])
+    |> cast(params, [:name, :email, :avatar, :provider, :authentication_token])
     |> validate_required([:name, :email, :avatar, :provider])
   end
 end
