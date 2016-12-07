@@ -9,7 +9,6 @@ defmodule PinterestBackend.PinController do
   def index(conn, _params) do
     query = from pins in Pin, preload: [:user]
     pins = Repo.all(query)
-    IEx.pry
     render(conn, "index.json", pins: pins)
   end
 
