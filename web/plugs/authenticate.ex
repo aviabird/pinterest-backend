@@ -7,16 +7,16 @@ defmodule PinterestBackend.Plugs.Authenticate do
   def init(options), do: options
 
   def call(conn, _) do
-   result = validate_token(conn, conn.params["token"])
+    result = validate_token(conn, get_req_header(conn, "access_token") |> Enum.at(0))
 
-   case result do
-     :missing_token ->
-       conn |> send_resp(401, "Missing valid Api token") |> halt
-     :invalid_token ->
-       conn |> send_resp(401, "Invalid Api token") |> halt
-     { :authenticated, user } ->
-       conn |> assign(:current_user, user)
-   end
+    case result do
+      :missing_token ->
+        conn |> send_resp(401, "Missing valid Api token") |> halt
+      :invalid_token ->
+        conn |> send_resp(401, "Invalid Api token") |> halt
+      { :authenticated, user } ->
+        conn |> assign(:current_user, user)
+    end
   end
 
   defp validate_token(conn, token) do
