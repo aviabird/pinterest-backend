@@ -30,7 +30,7 @@ defmodule PinterestBackend.Plugs.Authenticate do
     # Max age of 2 weeks (1209600 seconds)
     case Phoenix.Token.verify(conn, "user", token, max_age: 1209600) do
       {:ok, user_id} ->
-        user = Repo.get!r, user_id)
+        user = Repo.get!(User, user_id)
         { :authenticated, user }
       {:error, _} -> :invalid_token
     end
