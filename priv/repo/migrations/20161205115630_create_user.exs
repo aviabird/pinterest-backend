@@ -7,6 +7,7 @@ defmodule PinterestBackend.Repo.Migrations.CreateUser do
       add :email, :string
       add :avatar, :string
       add :provider, :string
+      add :authentication_token, :string
 
       timestamps()
     end
