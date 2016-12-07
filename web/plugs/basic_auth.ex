@@ -1,5 +1,6 @@
 defmodule BasicAuth do
   import Plug.Conn
+  require IEx
 
   def init(opts) do
     Keyword.fetch!(opts, :username)

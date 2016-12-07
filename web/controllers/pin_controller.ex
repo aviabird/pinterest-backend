@@ -4,11 +4,12 @@ defmodule PinterestBackend.PinController do
 
   alias PinterestBackend.Pin
     
-  plug PinterestBackend.Plugs.Authenticate
+  plug PinterestBackend.Plugs.Authenticate, "before all but index"  when not action in [:index]
 
   def index(conn, _params) do
     query = from pins in Pin, preload: [:user]
     pins = Repo.all(query)
+    IEx.pry
     render(conn, "index.json", pins: pins)
   end
 
