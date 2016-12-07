@@ -11,6 +11,7 @@ defmodule PinterestBackend.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug BasicAuth, username: "api", password: "password"
   end
 
   # scope "/", PinterestBackend do
