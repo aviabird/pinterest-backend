@@ -38,7 +38,10 @@ defmodule PinterestBackend.Endpoint do
     key: "_pinterest_backend_key",
     signing_salt: "P0fLiR3o"
 
-  plug CORSPlug
+  plug CORSPlug, [
+    origin: "http://localhost:4200",
+    headers: ["X-Auth-Token" | CORSPlug.defaults[:headers]]
+  ]
 
   plug PinterestBackend.Router
 end

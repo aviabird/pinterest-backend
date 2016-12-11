@@ -13,6 +13,7 @@ defmodule PinterestBackend.CommentView do
     %{id: comment.id,
       user_id: comment.user_id,
       pin_id: comment.pin_id,
+      message: comment.message,
       user: render_one(comment.user, PinterestBackend.UserView, "user.json")}
   end
 end

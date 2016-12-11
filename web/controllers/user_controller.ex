@@ -59,10 +59,10 @@ defmodule PinterestBackend.UserController do
   #   end
   # end
 
-  # def show(conn, %{"id" => id}) do
-  #   user = Repo.get!(User, id)
-  #   render(conn, "show.json", user: user)
-  # end
+  def show(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+    render(conn, "show.json", user: user)
+  end
 
   # def update(conn, %{"id" => id, "user" => user_params}) do
   #   user = Repo.get!(User, id)

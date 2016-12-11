@@ -14,7 +14,7 @@ defmodule PinterestBackend.Comment do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:message])
-    |> validate_required([:message])
+    |> cast(params, [:message, :user_id, :pin_id])
+    |> validate_required([:message, :user_id, :pin_id])
   end
 end

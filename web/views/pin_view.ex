@@ -15,7 +15,6 @@ defmodule PinterestBackend.PinView do
       image_url: pin.image_url,
       url: pin.url,
       tags: pin.tags,
-      user_id: pin.user_id,
       description: pin.description,
       user: render_one(pin.user, PinterestBackend.UserView, "user.json", as: :user)}
   end
@@ -26,7 +25,6 @@ defmodule PinterestBackend.PinView do
       image_url: pin.image_url,
       url: pin.url,
       tags: pin.tags,
-      user_id: pin.user_id,
       description: pin.description,
       comments: render_many(pin.comments, PinterestBackend.CommentView, "comment.json"),
       user: render_one(pin.user, PinterestBackend.UserView, "user.json")}
