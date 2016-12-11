@@ -3,7 +3,7 @@ defmodule PinterestBackend.CommentTest do
 
   alias PinterestBackend.Comment
 
-  @valid_attrs %{message: "some content"}
+  @valid_attrs %{}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

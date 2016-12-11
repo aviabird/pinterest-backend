@@ -7,7 +7,8 @@ defmodule PinterestBackend.Plugs.Authenticate do
   def init(options), do: options
 
   def call(conn, _) do
-    result = validate_token(conn, get_req_header(conn, "access_token") |> Enum.at(0))
+    #IEx.pry
+    result = validate_token(conn, get_req_header(conn, "x-auth-token") |> Enum.at(0))
 
     case result do
       :missing_token ->
