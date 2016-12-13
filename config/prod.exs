@@ -13,8 +13,9 @@ use Mix.Config
 # which you typically run after static files are built.
 config :pinterest_backend, PinterestBackend.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [scheme: "https", host: "pinwork-api.herokuapp.com", port: 443],
-  force_ssl: [rewrite_on: [:x_forwarded_proto]]
+  url: [host: "example.com", port: 80]
+  # url: [scheme: "https", host: "pinwork-api.herokuapp.com", port: 443],
+  # force_ssl: [rewrite_on: [:x_forwarded_proto]]
   #  cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
