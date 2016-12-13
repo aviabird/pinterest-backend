@@ -15,6 +15,7 @@ config :pinterest_backend, PinterestBackend.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "mysterious-meadow-6277.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
+
   # cache_static_manifest: "priv/static/manifest.json"
 
 # Do not print debug messages in production
