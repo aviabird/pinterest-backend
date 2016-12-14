@@ -19,8 +19,8 @@ defmodule PinterestBackend.Pin do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :image_url, :url, :tags, :description])
-    |> validate_required([:name, :image_url, :url, :tags, :description])
+    |> cast(params, [:name, :image_url, :url, :tags, :description, :user_id])
+    |> validate_required([:name, :image_url, :url, :tags, :description, :user_id])
   end
 
   def preloaded do

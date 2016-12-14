@@ -23,6 +23,7 @@ defmodule PinterestBackend.PinController do
 
     case Repo.insert(changeset) do
       {:ok, pin} ->
+        pin = pin |> Repo.preload([:user, {:comments, [:user]}])
         conn
         |> put_status(:created)
         |> put_resp_header("location", pin_path(conn, :show, pin))
@@ -40,7 +41,7 @@ defmodule PinterestBackend.PinController do
   end
 
   def update(conn, %{"id" => id, "pin" => pin_params}) do
-    pin = Repo.get!(Pin, id)
+    pin = Repo.get!(Pin, id) |> Repo.preload([:user, {:comments, [:user]}])
     changeset = Pin.changeset(pin, pin_params)
 
     case Repo.update(changeset) do
