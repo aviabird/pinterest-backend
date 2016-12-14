@@ -40,7 +40,13 @@ defmodule PinterestBackend.Endpoint do
 
   plug Corsica,
     origins: ["https://aviabird.github.io", "http://localhost:4200"],
-    allow_headers: ["access-control-allow-origin", "authorization", "content-type", "x-auth-token"]
+    allow_headers: [
+      "access-control-allow-origin",
+      "authorization",
+      "content-type",
+      "x-auth-token",
+      "origin"
+    ]
 
   plug PinterestBackend.Router
 end
