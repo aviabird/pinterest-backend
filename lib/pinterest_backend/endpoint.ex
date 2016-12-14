@@ -38,10 +38,10 @@ defmodule PinterestBackend.Endpoint do
     key: "_pinterest_backend_key",
     signing_salt: "P0fLiR3o"
 
-  plug CORSPlug, [
-    origin: "http://localhost:4200",
-    headers: ["X-Auth-Token" | CORSPlug.defaults[:headers]]
-  ]
+  plug Corsica,
+    origins: ["https://aviabird.github.io", "http://localhost:4200"],
+    allow_headers: ["access-control-allow-origin", "authorization", "content-type", "x-auth-token"]
 
   plug PinterestBackend.Router
 end
+
