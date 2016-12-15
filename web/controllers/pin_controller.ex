@@ -7,14 +7,7 @@ defmodule PinterestBackend.PinController do
   plug PinterestBackend.Plugs.Authenticate, "before all but index, show"  when not action in [:index, :show]
 
   def index(conn, params) do
-    query =
-      from pins in Pin,
-      order_by: [desc: :inserted_at],
-      limit: ^Dict.get(params, "limit", 10),
-      offset: ^Dict.get(params, "offset", 0),
-      preload: [:user]
-
-    pins = Repo.all(query)
+    pins = Pin |> Pin.search(params) |> Repo.all
     render(conn, "index.json", pins: pins)
   end
 

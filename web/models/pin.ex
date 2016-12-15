@@ -26,4 +26,14 @@ defmodule PinterestBackend.Pin do
   def preloaded do
     [:comments, :user]
   end
+
+  def search(query, params, limit \\ 0.3) do
+    from(p in query,
+      where: fragment("similarity(?, ?) > ?", p.tags, ^Dict.get(params, "tags", ""), ^limit),
+      order_by: fragment("similarity(?, ?) DESC", p.tags, ^Dict.get(params, "tags", "")),
+      limit: ^Dict.get(params, "limit", 10),
+      offset: ^Dict.get(params, "offset", 0),
+      preload: [:user]
+    )
+  end
 end
