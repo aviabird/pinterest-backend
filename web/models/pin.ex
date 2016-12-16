@@ -23,26 +23,31 @@ defmodule PinterestBackend.Pin do
     |> validate_required([:name, :image_url, :url, :tags, :description, :user_id])
   end
 
-  def preloaded do
-    [:comments, :user]
-  end
-
   def search(query, params, limit \\ 0.3) do
     search_query = Dict.get(params, "tags")
-    if search_query do
+
+    if search_query  do 
       from(p in query,
-        where: fragment("similarity(?, ?) > ?", p.tags, ^Dict.get(params, "tags", ""), ^limit),
-        order_by: fragment("similarity(?, ?) DESC", p.tags, ^Dict.get(params, "tags", "")),
-        limit: ^Dict.get(params, "limit", 10),
-        offset: ^Dict.get(params, "offset", 0),
-        preload: [:user]
+        where: fragment(
+          "similarity(?, ?) > ? or similarity(?,?) > 0.2 or similarity(?,?) > 0.1",
+          p.tags, ^search_query, ^limit,
+          p.name, ^search_query,
+          p.description, ^search_query),
+        order_by: fragment(
+          "similarity(?, ?), similarity(?,?), similarity(?,?) DESC",
+          p.tags, ^search_query,
+          p.name, ^search_query,
+          p.description, ^search_query)
       )
     else
-      from(p in query,
-        limit: ^Dict.get(params, "limit", 10),
-        offset: ^Dict.get(params, "offset", 0),
-        preload: [:user]
-      )
+      query
     end
+  end
+
+  def with_limit_offset(query, params) do
+    from p in query,
+      limit: ^Dict.get(params, "limit", 20),
+      offset: ^Dict.get(params, "offset", 0),
+      preload: [:user]
   end
 end
