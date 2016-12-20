@@ -15,6 +15,9 @@ defmodule PinterestBackend.CommentController do
     case Repo.insert(changeset) do
       {:ok, comment} ->
         comment = comment |> Repo.preload(:user)
+
+        PinterestBackend.CommentsChannel.broadcast_create(comment)
+
         conn
         |> put_status(:created)
         |> put_resp_header("location", comment_path(conn, :show, comment))

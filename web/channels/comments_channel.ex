@@ -26,4 +26,10 @@ defmodule PinterestBackend.CommentsChannel do
   defp authorized?(_payload) do
     true
   end
+
+  def broadcast_create(comment) do
+    payload = PinterestBackend.CommentView.render("comment.json", %{comment: comment})
+
+    PinterestBackend.Endpoint.broadcast("comments:lobby", "new:msg", payload)
+  end
 end
