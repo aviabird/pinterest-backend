@@ -1,9 +1,11 @@
 defmodule PinterestBackend.UserSocket do
   use Phoenix.Socket
   alias PinterestBackend.Repo
+  alias PinterestBackend.User
 
   ## Channels
-  channel "room:*", PinterestBackend.RoomChannel
+  # channel "room:*", PinterestBackend.RoomChannel
+  channel "comments:*", PinterestBackend.CommentsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket,

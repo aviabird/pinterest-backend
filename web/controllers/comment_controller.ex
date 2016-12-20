@@ -15,6 +15,9 @@ defmodule PinterestBackend.CommentController do
     case Repo.insert(changeset) do
       {:ok, comment} ->
         comment = comment |> Repo.preload(:user)
+
+        PinterestBackend.CommentsChannel.broadcast_create(comment)
+
         conn
         |> put_status(:created)
         |> put_resp_header("location", comment_path(conn, :show, comment))
@@ -51,6 +54,8 @@ defmodule PinterestBackend.CommentController do
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(comment)
+
+    PinterestBackend.CommentsChannel.broadcast_delete(id, comment.user_id)
 
     send_resp(conn, :no_content, "")
   end
