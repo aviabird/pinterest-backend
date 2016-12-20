@@ -29,7 +29,12 @@ defmodule PinterestBackend.CommentsChannel do
 
   def broadcast_create(comment) do
     payload = PinterestBackend.CommentView.render("comment.json", %{comment: comment})
-
     PinterestBackend.Endpoint.broadcast("comments:lobby", "new:msg", payload)
   end
+
+  def broadcast_delete(id, user_id) do
+    payload = %{id: id, user_id: user_id}
+    PinterestBackend.Endpoint.broadcast("comments:lobby", "delete:msg", payload)
+  end
+
 end

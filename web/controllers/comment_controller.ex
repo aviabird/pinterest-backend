@@ -55,6 +55,8 @@ defmodule PinterestBackend.CommentController do
     # it to always work (and if it does not, it will raise).
     Repo.delete!(comment)
 
+    PinterestBackend.CommentsChannel.broadcast_delete(id, comment.user_id)
+
     send_resp(conn, :no_content, "")
   end
 end
