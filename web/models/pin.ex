@@ -20,7 +20,14 @@ defmodule PinterestBackend.Pin do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :image_url, :url, :tags, :description, :user_id])
-    |> validate_required([:name, :image_url, :url, :tags, :description, :user_id])
+    |> validate_required([:name, :image_url, :url, :tags, :description])
+    |> validate_format(:image_url, ~r/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|png|svg))/i)
+    |> validate_format(:url, ~r/(https?:\/\/.*\.)/i)
+    |> validate_length(:name, max: 250)
+    |> validate_length(:description, max: 250)
+    |> validate_length(:tags, max: 250)
+    |> validate_length(:name, min: 5)
+    |> validate_length(:description, min: 5)
   end
 
   def search(query, params, limit \\ 0.3) do

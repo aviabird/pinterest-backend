@@ -3,7 +3,7 @@ defmodule PinterestBackend.UsersFollowingTest do
 
   alias PinterestBackend.UsersFollowing
 
-  @valid_attrs %{}
+  @valid_attrs %{user_id: 1, following_id: 2}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

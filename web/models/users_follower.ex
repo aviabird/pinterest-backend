@@ -13,7 +13,7 @@ defmodule PinterestBackend.UsersFollower do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    |> validate_required([])
+    |> cast(params, [:user_id, :follower_id])
+    |> validate_required([:user_id, :follower_id])
   end
 end

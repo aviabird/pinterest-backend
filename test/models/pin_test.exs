@@ -1,13 +1,13 @@
 defmodule PinterestBackend.PinTest do
   use PinterestBackend.ModelCase
-
+  import PinterestBackend.JsonFactory
   alias PinterestBackend.Pin
 
-  @valid_attrs %{description: "some content", image_url: "some content", name: "some content", tags: "some content", url: "some content"}
+  @valid_attrs build(:pin)
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    changeset = Pin.changeset(%Pin{}, @valid_attrs)
+    changeset = Pin.changeset(@valid_attrs)
     assert changeset.valid?
   end
 

@@ -17,6 +17,7 @@ defmodule PinterestBackend.User do
     struct
     |> cast(params, [:name, :email, :avatar, :provider])
     |> validate_required([:name, :email, :avatar, :provider])
+    |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
   end
 end

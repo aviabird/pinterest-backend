@@ -1,13 +1,14 @@
 defmodule PinterestBackend.UserTest do
   use PinterestBackend.ModelCase
-
   alias PinterestBackend.User
 
-  @valid_attrs %{avatar: "some content", email: "some content", name: "some content", provider: "some content"}
-  @invalid_attrs %{}
+  require IEx
+
+  @valid_attrs PinterestBackend.JsonFactory.build(:user)
+  @invalid_attrs %{email: "test.com"}
 
   test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
+    changeset = User.changeset(@valid_attrs)
     assert changeset.valid?
   end
 

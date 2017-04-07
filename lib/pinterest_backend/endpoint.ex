@@ -39,7 +39,11 @@ defmodule PinterestBackend.Endpoint do
     signing_salt: "P0fLiR3o"
 
   plug Corsica,
-    origins: ["https://aviabird.github.io", "http://localhost:4200"],
+    origins: [
+      "https://aviabird.github.io",
+      "https://ng2-pinwork.firebaseapp.com",
+      "http://localhost:4200"
+    ],
     allow_headers: [
       "access-control-allow-origin",
       "authorization",

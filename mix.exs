@@ -17,9 +17,13 @@ defmodule PinterestBackend.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {PinterestBackend, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :corsica]]
+    [
+      mod: {PinterestBackend, []},
+      applications: [
+        :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy,
+        :logger, :gettext, :phoenix_ecto, :postgrex, :corsica
+      ]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,6 +43,7 @@ defmodule PinterestBackend.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:corsica, "~> 0.5"},
+     {:ex_machina, "~> 1.0", only: :test},
     ]
   end
 

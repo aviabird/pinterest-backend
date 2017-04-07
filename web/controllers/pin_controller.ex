@@ -3,7 +3,7 @@ defmodule PinterestBackend.PinController do
   require IEx
 
   alias PinterestBackend.Pin
-    
+
   plug PinterestBackend.Plugs.Authenticate, "before all but index, show"  when not action in [:index, :show]
 
   def index(conn, params) do
