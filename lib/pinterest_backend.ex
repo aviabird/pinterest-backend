@@ -11,7 +11,7 @@ defmodule PinterestBackend do
       # Start the Ecto repository
       supervisor(PinterestBackend.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(PinterestBackend.Endpoint, []),
+      supervisor(PinterestBackend.Endpoint, [])
       # Start your own worker by calling: PinterestBackend.Worker.start_link(arg1, arg2, arg3)
       # worker(PinterestBackend.Worker, [arg1, arg2, arg3]),
     ]

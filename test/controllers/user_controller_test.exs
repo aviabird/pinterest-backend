@@ -2,35 +2,44 @@ defmodule PinterestBackend.UserControllerTest do
   use PinterestBackend.ConnCase
 
   alias PinterestBackend.User
-  @valid_attrs %{avatar: "some content", email: "some content", name: "some content", provider: "some content"}
+
+  @valid_attrs %{
+    avatar: "some content",
+    email: "some content",
+    name: "some content",
+    provider: "some content"
+  }
   @invalid_attrs %{}
 
   setup %{conn: conn} do
     conn = put_req_header(conn, "authorization", "Basic YXBpOnBhc3N3b3Jk")
     user = %{email: "test@gmail.com"}
-    conn = post conn, user_path(conn, :auth, %{user: user})
+    conn = post(conn, user_path(conn, :auth, %{user: user}))
     {:ok, conn: conn}
   end
 
   test "lists all entries on index", %{conn: conn} do
-    conn = get conn, user_path(conn, :index)
+    conn = get(conn, user_path(conn, :index))
     assert json_response(conn, 200)["data"] == []
   end
 
   test "shows chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = get conn, user_path(conn, :show, user)
-    assert json_response(conn, 200)["data"] == %{"id" => user.id,
-      "name" => user.name,
-      "email" => user.email,
-      "avatar" => user.avatar,
-      "provider" => user.provider}
+    user = Repo.insert!(%User{})
+    conn = get(conn, user_path(conn, :show, user))
+
+    assert json_response(conn, 200)["data"] == %{
+             "id" => user.id,
+             "name" => user.name,
+             "email" => user.email,
+             "avatar" => user.avatar,
+             "provider" => user.provider
+           }
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
-    assert_error_sent 404, fn ->
-      get conn, user_path(conn, :show, -1)
-    end
+    assert_error_sent(404, fn ->
+      get(conn, user_path(conn, :show, -1))
+    end)
   end
 
   #  test "creates and renders resource when data is valid", %{conn: conn} do

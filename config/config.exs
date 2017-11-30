@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :pinterest_backend,
-  ecto_repos: [PinterestBackend.Repo]
+config :pinterest_backend, ecto_repos: [PinterestBackend.Repo]
 
 # Configures the endpoint
 config :pinterest_backend, PinterestBackend.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "GrP5l4D5SwVrbu1Y/pvVfOMuEp2v+D4tVh9p1kE5NgMsdlNuGjnU3eAjISIvLiSs",
   render_errors: [view: PinterestBackend.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: PinterestBackend.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: PinterestBackend.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +22,4 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

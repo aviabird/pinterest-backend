@@ -13,7 +13,6 @@ config :pinterest_backend, PinterestBackend.Endpoint,
   check_origin: false,
   watchers: []
 
-
 # Watch static and templates for browser reloading.
 config :pinterest_backend, PinterestBackend.Endpoint,
   live_reload: [
